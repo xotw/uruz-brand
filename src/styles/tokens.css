@@ -1,0 +1,127 @@
+/* ============================================================================
+ * URUZ — jetons de design
+ *
+ * Source unique de vérité pour le site et pour l'app. Toute couleur, tout
+ * rayon, toute police se décide ici et nulle part ailleurs.
+ *
+ * Tailwind v4, approche CSS-first : il n'y a aucun fichier tailwind.config.
+ * Le bloc @theme EST la configuration.
+ * ========================================================================== */
+
+@theme inline {
+  /* ── Typographie ──────────────────────────────────────────────────────── */
+  --font-display: "Jost", system-ui, sans-serif;
+  --font-sans: "Jost", system-ui, sans-serif;
+
+  /* ── Rayons ───────────────────────────────────────────────────────────────
+   * 0.125rem = 2px. Autant dire aucun. L'identité Uruz est anguleuse : des
+   * arêtes franches, jamais de coins adoucis. L'échelle existe pour que les
+   * composants tiers qui l'attendent ne cassent pas, pas pour être utilisée. */
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  /* ── Couleurs ─────────────────────────────────────────────────────────── */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-foreground: var(--surface-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+}
+
+/* ============================================================================
+ * Thème unique : sombre.
+ *
+ * Uruz n'a pas de thème clair et n'en veut pas. Le fond anthracite et le jaune
+ * acide sont l'identité. Un mode clair diluerait les deux.
+ *
+ * Conséquence pratique : ne jamais définir une couleur uniquement dans un bloc
+ * media ou [data-theme]. Tout vit ici.
+ * ========================================================================== */
+
+:root {
+  --radius: 0.125rem;
+
+  --background: oklch(0.244 0.006 0.6);
+  --foreground: oklch(0.985 0 0);
+
+  /* Une surface légèrement relevée sur le fond : cartes, bandeaux, en-têtes. */
+  --surface: oklch(0.29 0.006 0.6);
+  --surface-foreground: oklch(0.985 0 0);
+  --card: oklch(0.29 0.006 0.6);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.29 0.006 0.6);
+  --popover-foreground: oklch(0.985 0 0);
+
+  /* Le jaune acide. La seule couleur vive de tout le système.
+   * Sa force vient de sa rareté : un bloc plein, un filet, un accent. Jamais
+   * un dégradé, jamais deux fois dans le même champ de vision. */
+  --primary: oklch(0.945 0.167 109);
+  --primary-foreground: oklch(0.244 0.006 0.6);
+
+  --secondary: oklch(0.345 0.006 0.6);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.345 0.006 0.6);
+  --muted-foreground: oklch(0.72 0.006 0.6);
+
+  /* ── Correction volontaire par rapport au site ────────────────────────────
+   * Sur le site, --accent vaut exactement --primary. C'est une erreur héritée
+   * du thème de départ : dans la convention shadcn, --accent est le fond
+   * DISCRET du survol, pas la couleur de marque. Résultat, les boutons
+   * "outline" et "ghost" se remplissent de jaune fluo au survol au lieu du
+   * gris attendu.
+   *
+   * Ici --accent reprend son rôle de gris relevé. Le jaune reste --primary,
+   * et il s'utilise explicitement quand on le veut. */
+  --accent: oklch(0.345 0.006 0.6);
+  --accent-foreground: oklch(0.985 0 0);
+
+  --destructive: oklch(0.6 0.21 25);
+  --destructive-foreground: oklch(0.98 0.003 80);
+
+  /* Ajout pour l'app : une séance faite, une série validée, un paiement passé.
+   * Le site n'en avait pas besoin, une app de suivi si. */
+  --success: oklch(0.72 0.17 149);
+  --success-foreground: oklch(0.244 0.006 0.6);
+
+  /* Bordures en blanc translucide plutôt qu'en gris opaque : elles restent
+   * justes quelle que soit la surface posée dessous. */
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.945 0.167 109);
+
+  --chart-1: oklch(0.945 0.167 109);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+}

@@ -1,0 +1,170 @@
+/* ============================================================================
+ * URUZ — utilitaires
+ *
+ * Les traitements récurrents, définis une fois. Chacun porte la raison de ses
+ * valeurs : sans ça, quelqu'un les "arrondit" dans six mois et casse le rendu
+ * sans comprendre pourquoi.
+ * ========================================================================== */
+
+/* Le traitement des grands titres. Noir 900, capitales, chasse resserrée.
+ *
+ * L'interlignage est responsive et c'est délibéré : 0.95 est juste sur un
+ * titre d'une seule ligne en grand, mais dès qu'un titre passe à la ligne en
+ * petite largeur, les lignes en capitales se touchent. On respire en mobile,
+ * on resserre à partir de 768px. */
+@utility text-display {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+/* Le sur-titre : petit, espacé, en jaune, juste au-dessus d'un titre.
+ * L'approche se réduit en mobile, où 0.28em finit par déborder à 360px. */
+@utility kicker {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+@media (min-width: 768px) {
+  .text-display {
+    line-height: 0.95;
+  }
+  .kicker {
+    letter-spacing: 0.28em;
+  }
+}
+
+/* À poser sur tout texte de longueur inconnue : nom d'exercice saisi par un
+ * coach, e-mail d'athlète, URL. Un seul mot trop long suffit à faire glisser
+ * toute la page horizontalement. */
+@utility text-balance-safe {
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+}
+
+/* Rythme vertical des sections. */
+@utility section {
+  padding-block: 5rem;
+}
+
+@utility section-lg {
+  padding-block: 7rem;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-block: 7rem;
+  }
+  .section-lg {
+    padding-block: 9rem;
+  }
+}
+
+/* La texture métal rayé, signature visuelle d'Uruz.
+ * Le mélange multiply + screen est ce qui donne le grain sans écraser le fond. */
+@utility textured {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+    url("../assets/metal-scratches.jpg");
+  background-size: 260px;
+  background-blend-mode: multiply, screen;
+  background-attachment: fixed;
+}
+
+/* Bandeau texturé translucide, aux bords estompés plutôt qu'à filet net.
+ * Le masque dégradé évite les lignes de séparation dures entre sections. */
+@utility textured-veil {
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.55;
+    background-color: var(--color-surface);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+      url("../assets/metal-scratches.jpg");
+    background-size: 260px;
+    background-blend-mode: multiply, screen;
+    background-attachment: fixed;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      #000 48px,
+      #000 calc(100% - 48px),
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      #000 48px,
+      #000 calc(100% - 48px),
+      transparent 100%
+    );
+  }
+}
+
+/* Bande de mots défilante. */
+@utility marquee-track {
+  display: flex;
+  width: max-content;
+  animation: uruz-marquee 32s linear infinite;
+}
+
+@keyframes uruz-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Zone tactile confortable. Sur un plateau, on saisit ses séries avec les
+ * mains moites et pressées : 44px est le minimum au-dessous duquel on rate
+ * sa cible une fois sur trois. */
+@utility tap-target {
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+}
+
+/* Marge basse pour ne pas passer sous la barre de navigation au pouce, ni
+ * sous la zone d'accueil des iPhone. */
+@utility pb-thumb-nav {
+  padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+}
+
+/* ── Garde-fous ──────────────────────────────────────────────────────────── */
+
+/* Respecter le réglage système de réduction des animations. Ce n'est pas une
+ * préférence esthétique : certaines personnes ont des vertiges avec le
+ * mouvement. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* background-attachment: fixed est cassé sur iOS Safari : la texture saute au
+ * défilement ou se retrouve mal cadrée. Sur tout appareil tactile, on repasse
+ * en scroll. Le rendu est quasi identique, sans la panne. */
+@media (hover: none), (pointer: coarse) {
+  .textured,
+  .textured-veil::before {
+    background-attachment: scroll;
+  }
+}
