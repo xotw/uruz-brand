@@ -18,7 +18,16 @@ import { extendTailwindMerge } from "tailwind-merge";
  * On lui déclare donc chaque utilitaire comme un groupe à part, qui n'entre
  * en conflit qu'avec lui-même.
  */
-const twMerge = extendTailwindMerge({
+type UruzGroup =
+  | "uruz-display"
+  | "uruz-wrap"
+  | "uruz-kicker"
+  | "uruz-texture"
+  | "uruz-tap"
+  | "uruz-section"
+  | "uruz-thumb";
+
+const twMerge = extendTailwindMerge<UruzGroup>({
   extend: {
     classGroups: {
       "uruz-display": ["text-display"],
