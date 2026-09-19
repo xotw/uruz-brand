@@ -25,7 +25,8 @@ type UruzGroup =
   | "uruz-texture"
   | "uruz-tap"
   | "uruz-section"
-  | "uruz-thumb";
+  | "uruz-thumb"
+  | "uruz-depth";
 
 const twMerge = extendTailwindMerge<UruzGroup>({
   extend: {
@@ -37,6 +38,9 @@ const twMerge = extendTailwindMerge<UruzGroup>({
       "uruz-tap": ["tap-target"],
       "uruz-section": ["section", "section-lg"],
       "uruz-thumb": ["pb-thumb-nav"],
+      // Les deux profondeurs s'excluent : une carte posée ou une chose qui
+      // flotte, jamais les deux empilées.
+      "uruz-depth": ["card-depth", "float-depth"],
     },
   },
 });

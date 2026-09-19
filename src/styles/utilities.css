@@ -140,6 +140,35 @@
   padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
 }
 
+/* ── La profondeur ─────────────────────────────────────────────────────────
+ *
+ * Gab veut « des cartes avec plus de profondeur ». Sur un fond sombre, une
+ * ombre portée ne se voit presque pas : l'ombre d'un objet noir sur du noir
+ * n'existe pas. Ce qui donne le relief sur ce genre d'interface, c'est le
+ * FILET CLAIR EN HAUT — la lumière qui accroche l'arête supérieure — plus
+ * une ombre très courte en dessous pour décoller l'objet de son fond.
+ *
+ * Deux valeurs, pas plus. Une carte posée, et une chose qui flotte
+ * réellement au-dessus du reste. Dispatch n'utilise l'ombre que cinq fois
+ * dans toute l'app, et toujours sur ce qui flotte ; des ombres partout sont
+ * la signature la plus reconnaissable d'une interface faite à la va-vite.
+ */
+
+/* Une carte posée sur sa surface. */
+@utility card-depth {
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, var(--foreground) 6%, transparent),
+    0 1px 2px color-mix(in oklab, black 35%, transparent);
+}
+
+/* Ce qui flotte vraiment : une fenêtre, un tiroir, une carte qu'on déplace. */
+@utility float-depth {
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, var(--foreground) 8%, transparent),
+    0 10px 30px -10px color-mix(in oklab, black 70%, transparent),
+    0 2px 8px color-mix(in oklab, black 45%, transparent);
+}
+
 /* ── Garde-fous ──────────────────────────────────────────────────────────── */
 
 /* Respecter le réglage système de réduction des animations. Ce n'est pas une

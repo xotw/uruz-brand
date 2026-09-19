@@ -22,29 +22,40 @@
  */
 
 /** Appels à l'action. */
+/**
+ * Les actions.
+ *
+ * ELLES SONT RONDES, ET C'EST LE SEUL ÉLÉMENT QUI L'EST COMPLÈTEMENT
+ *
+ * Reprise de Dispatch, sur demande de Gab. Une pilule au milieu de surfaces
+ * à 14px se voit comme un objet d'une autre nature, ce qui est exactement ce
+ * qu'une action est : la seule chose de l'écran sur laquelle on appuie. Le
+ * jaune restait rare, mais il était rare ET carré, donc de la même famille
+ * visuelle que tout le reste.
+ */
 export const cta = {
   /** L'action principale. Bloc jaune plein. Un seul par écran. */
   solid:
-    "group inline-flex items-center justify-center gap-3 bg-primary px-7 py-4 " +
+    "group inline-flex items-center justify-center gap-3 rounded-full bg-primary px-7 py-4 " +
     "text-xs font-semibold uppercase tracking-[0.25em] text-primary-foreground " +
     "transition-opacity hover:opacity-90 disabled:opacity-60 " +
     "disabled:cursor-not-allowed tap-target",
 
   /** Variante plus large et plus lisible, pour les fins de page. */
   solidLarge:
-    "group inline-flex items-center justify-center gap-2 bg-primary px-8 py-3.5 " +
+    "group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-3.5 " +
     "text-sm font-semibold uppercase tracking-[0.2em] text-primary-foreground " +
     "transition-opacity hover:opacity-90 disabled:opacity-60 tap-target",
 
   /** Action secondaire. Filet jaune qui se remplit au survol. */
   outline:
-    "group inline-flex items-center justify-center gap-3 border border-primary " +
+    "group inline-flex items-center justify-center gap-3 rounded-full border border-primary " +
     "px-6 py-3.5 text-xs font-semibold uppercase tracking-[0.25em] text-primary " +
     "transition-colors hover:bg-primary hover:text-primary-foreground tap-target",
 
   /** Action tertiaire, discrète. Filet neutre. */
   quiet:
-    "inline-flex items-center justify-center gap-3 border border-border px-7 py-4 " +
+    "inline-flex items-center justify-center gap-3 rounded-full border border-border px-7 py-4 " +
     "text-xs font-semibold uppercase tracking-[0.25em] text-foreground " +
     "transition-colors hover:border-primary hover:text-primary tap-target",
 
@@ -131,19 +142,27 @@ export const body = {
 } as const;
 
 /** Formulaires. */
+/**
+ * Les champs.
+ *
+ * Arrondis à 10px : moins qu'une carte, beaucoup moins qu'un bouton. Un
+ * champ complètement rond se confond avec le bouton posé à côté de lui, et
+ * on ne sait plus lequel des deux on peut taper.
+ */
 export const field = {
   label:
     "text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground",
   /** `text-base` et non `text-sm` : en dessous de 16px, iOS zoome tout seul
    *  quand le champ prend le focus, ce qui décale la page entière. */
   input:
-    "w-full border border-border bg-transparent px-4 py-3 text-base text-foreground " +
+    "w-full rounded-md border border-border bg-transparent px-4 py-3 text-base text-foreground " +
     "outline-none transition-colors placeholder:text-muted-foreground/60 " +
     "focus:border-primary disabled:opacity-50 tap-target",
   error: "mt-2 block text-sm text-destructive",
   errorBanner:
-    "border border-destructive/50 px-4 py-3 text-sm text-destructive",
-  successBanner: "border border-success/50 px-4 py-3 text-sm text-success",
+    "rounded-md border border-destructive/50 px-4 py-3 text-sm text-destructive",
+  successBanner:
+    "rounded-md border border-success/50 px-4 py-3 text-sm text-success",
 } as const;
 
 /**
@@ -170,8 +189,9 @@ export const thumbNav = {
 
 /** Pastilles d'état. */
 export const badge = {
+  /** Rond comme un bouton, parce qu'une pastille d'état EST une pilule. */
   base:
-    "inline-flex items-center gap-1.5 border px-2.5 py-1 text-[0.65rem] " +
+    "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[0.65rem] " +
     "font-semibold uppercase tracking-[0.15em]",
   done: "border-success/40 text-success",
   pending: "border-border text-muted-foreground",
