@@ -9,6 +9,7 @@
  */
 
 export { cn } from "./cn";
+export { BrandWatermark } from "./components/BrandWatermark";
 
 export {
   cta,
