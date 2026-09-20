@@ -189,10 +189,32 @@ export const thumbNav = {
 
 /** Pastilles d'état. */
 export const badge = {
-  /** Rond comme un bouton, parce qu'une pastille d'état EST une pilule. */
+  /**
+   * Rond comme un bouton, parce qu'une pastille d'état EST une pilule.
+   *
+   * ELLE NE DÉBORDE JAMAIS DE CE QUI LA CONTIENT
+   *
+   * Gab, capture à l'appui : « cette carte avec le texte et le bouton qui
+   * débordent, ce n'est pas possible. »
+   *
+   * Il a raison et le calcul est simple. Une colonne de jour fait 130 px
+   * sur un écran de 1440 ; il en reste 86 dans la carte une fois les deux
+   * marges enlevées. « PARTIELLE » fait neuf lettres, et à 0,15 em
+   * d'interlettrage plus 20 px de rembourrage, la pilule en demandait 88.
+   * Deux pixels de trop de chaque côté, sur le seul mot d'état assez long
+   * pour les atteindre : le genre de défaut qu'on ne voit pas en écrivant
+   * « FAITE » et qui saute aux yeux du client.
+   *
+   * Trois changements, et le troisième est le seul qui garantisse quelque
+   * chose. L'interlettrage passe à 0,08 em et le rembourrage à 8 px, ce qui
+   * ramène la pilule à 76 px : ça tient. Et `max-w-full` avec la coupure
+   * par points de suspension fait que, quelle que soit la largeur et quel
+   * que soit le mot, elle ne sortira plus jamais de son parent.
+   */
   base:
-    "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[0.65rem] " +
-    "font-semibold uppercase tracking-[0.15em]",
+    "inline-flex max-w-full items-center gap-1.5 overflow-hidden text-ellipsis " +
+    "whitespace-nowrap rounded-full border px-2 py-1 text-[0.65rem] " +
+    "font-semibold uppercase tracking-[0.08em]",
   done: "border-success/40 text-success",
   pending: "border-border text-muted-foreground",
   late: "border-destructive/50 text-destructive",
