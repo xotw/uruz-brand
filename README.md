@@ -38,12 +38,21 @@ Charge aussi la police dans le `<head>` :
 
 ## Les trois règles
 
-**Aucun arrondi.** Tout est anguleux, bordure franche. `--radius` vaut 2px
-uniquement pour ne pas casser les composants tiers qui l'attendent, pas pour
-être utilisé.
+**Les cartes s'arrondissent, les cadres non.** `--radius` vaut 14px, la
+valeur de Dispatch. Les boutons, les pastilles et les avatars sont
+complètement ronds ; les colonnes d'un plan de travail, la barre latérale et
+les bandeaux restent carrés. Arrondir un cadre qui touche le bord de l'écran
+laisse voir un coin de fond.
 
 **Le jaune est rare.** Un bloc plein, un filet, un accent. Jamais un dégradé,
 jamais deux fois dans le même champ de vision. Sa force vient de sa rareté.
+
+**Deux thèmes, et le sombre reste la maison.** Le clair existe depuis le
+20/09/2026. Mêmes teintes, clartés retournées : un thème clair n'est pas une
+autre palette, c'est la même retournée. Seule exception, le jaune descend de
+94 % à 62 % de clarté, parce qu'à 94 % il est illisible en texte sur un fond
+presque blanc. Ne jamais définir une couleur uniquement sous
+`[data-theme="light"]` : elle manquerait dans l'autre thème.
 
 **La micro-typo est en capitales espacées.** `text-xs`, approche de 0.2em à
 0.3em. C'est la signature de la marque, plus reconnaissable que la couleur.

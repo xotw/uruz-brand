@@ -72,13 +72,31 @@
 }
 
 /* ============================================================================
- * Thème unique : sombre.
+ * Deux thèmes, et le sombre reste la maison.
  *
- * Uruz n'a pas de thème clair et n'en veut pas. Le fond anthracite et le jaune
- * acide sont l'identité. Un mode clair diluerait les deux.
+ * Ce livre disait « Uruz n'a pas de thème clair et n'en veut pas ». Gab en
+ * veut un, donc c'est le livre qui change. Ce qui suit dit comment le faire
+ * sans perdre l'identité, parce que la crainte d'origine était juste : un
+ * mode clair mal fait dilue le fond anthracite ET le jaune acide.
  *
- * Conséquence pratique : ne jamais définir une couleur uniquement dans un bloc
- * media ou [data-theme]. Tout vit ici.
+ * LA RÈGLE, REPRISE DE DISPATCH
+ *
+ * Les teintes ne changent pas, seule leur CLARTÉ change. Un thème clair
+ * n'est pas une autre palette, c'est la même palette retournée. Une app qui
+ * change de couleurs en changeant de mode donne l'impression de deux
+ * produits.
+ *
+ * L'EXCEPTION QUI COMPTE
+ *
+ * Le jaune acide à 94,5 % de clarté est illisible en texte sur un fond
+ * presque blanc — c'est exactement le mot de Dispatch sur sa menthe. En
+ * clair, il descend à 62 % : assez sombre pour se lire, assez saturé pour
+ * rester le même jaune. C'est la seule couleur qui bouge autrement que par
+ * symétrie, et c'est celle dont tout dépend.
+ *
+ * Le sombre reste dans `:root`. Le clair vit sous `[data-theme="light"]`,
+ * et rien d'autre ne doit y descendre : une couleur définie SEULEMENT là
+ * manquerait dans l'autre thème et personne ne le verrait avant longtemps.
  * ========================================================================== */
 
 :root {
@@ -137,4 +155,64 @@
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
+
+  /* ── La profondeur ────────────────────────────────────────────────────
+   * Sur du sombre, le relief vient d'un filet CLAIR en haut : la lumière
+   * accroche l'arête supérieure. Sur du clair, l'inverse — un filet clair
+   * y serait invisible, et c'est l'ombre portée qui fait tout le travail.
+   * Ces deux variables sont ce qui permet à `card-depth` d'avoir raison
+   * dans les deux mondes. */
+  --depth-highlight: oklch(1 0 0 / 6%);
+  --depth-shadow: oklch(0 0 0 / 35%);
+  --depth-float: oklch(0 0 0 / 70%);
+}
+
+/* ── Le thème clair ────────────────────────────────────────────────────────
+ * Mêmes teintes, clartés retournées. Le fond n'est pas blanc mais un gris
+ * très pâle légèrement chaud : un blanc pur sous une interface dense fatigue
+ * en une heure, et il ne laisse aucune place à une surface « relevée ».
+ * ------------------------------------------------------------------------ */
+html[data-theme="light"] {
+  --background: oklch(0.968 0.003 80);
+  --foreground: oklch(0.215 0.006 0.6);
+
+  /* La surface est plus CLAIRE que le fond, comme dans le thème sombre elle
+   * est plus claire que le fond : une carte est toujours plus proche de la
+   * lumière que le mur. */
+  --surface: oklch(0.995 0.002 80);
+  --surface-foreground: oklch(0.215 0.006 0.6);
+  --card: oklch(0.995 0.002 80);
+  --card-foreground: oklch(0.215 0.006 0.6);
+  --popover: oklch(0.995 0.002 80);
+  --popover-foreground: oklch(0.215 0.006 0.6);
+
+  /* Le jaune descend, pour la raison dite plus haut. Le texte posé dessus
+   * remonte au blanc : à cette clarté, l'anthracite ne passe plus. */
+  --primary: oklch(0.62 0.145 105);
+  --primary-foreground: oklch(0.995 0.002 80);
+
+  --secondary: oklch(0.925 0.004 80);
+  --secondary-foreground: oklch(0.215 0.006 0.6);
+  --muted: oklch(0.925 0.004 80);
+  --muted-foreground: oklch(0.44 0.006 0.6);
+  --accent: oklch(0.925 0.004 80);
+  --accent-foreground: oklch(0.215 0.006 0.6);
+
+  --destructive: oklch(0.52 0.2 25);
+  --destructive-foreground: oklch(0.995 0.002 80);
+  --success: oklch(0.52 0.14 149);
+  --success-foreground: oklch(0.995 0.002 80);
+
+  /* Les bordures passent du blanc translucide au noir translucide, pour la
+   * même raison qu'elles étaient blanches en sombre : rester justes quelle
+   * que soit la surface posée dessous. */
+  --border: oklch(0 0 0 / 13%);
+  --input: oklch(0 0 0 / 18%);
+  --ring: oklch(0.62 0.145 105);
+
+  --chart-1: oklch(0.62 0.145 105);
+
+  --depth-highlight: oklch(1 0 0 / 75%);
+  --depth-shadow: oklch(0 0 0 / 11%);
+  --depth-float: oklch(0 0 0 / 22%);
 }
