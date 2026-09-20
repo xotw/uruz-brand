@@ -165,6 +165,20 @@
   --depth-highlight: oklch(1 0 0 / 6%);
   --depth-shadow: oklch(0 0 0 / 35%);
   --depth-float: oklch(0 0 0 / 70%);
+
+  /* ── Le papier ────────────────────────────────────────────────────────
+   * Le carnet du coach n'est pas une surface de l'interface, c'est un
+   * OBJET posé dessus — un post-it. Ses couleurs ne dérivent donc pas des
+   * jetons de thème, elles décrivent du papier.
+   *
+   * Elles changent quand même de thème, et pas pour la raison qu'on croit :
+   * une feuille crème sur un mur anthracite saute aux yeux, la même feuille
+   * sur un mur presque blanc disparaît. En clair, le papier devient un vrai
+   * jaune de bloc-notes pour rester un objet distinct. */
+  --paper: oklch(0.9 0.05 100);
+  --paper-ink: oklch(0.22 0.012 80);
+  --paper-fold: oklch(0.76 0.045 100);
+  --paper-rule: oklch(0.22 0.012 80 / 16%);
 }
 
 /* ── Le thème clair ────────────────────────────────────────────────────────
@@ -188,7 +202,11 @@ html[data-theme="light"] {
 
   /* Le jaune descend, pour la raison dite plus haut. Le texte posé dessus
    * remonte au blanc : à cette clarté, l'anthracite ne passe plus. */
-  --primary: oklch(0.62 0.145 105);
+  /* 62 % de clarté est le plafond pour du TEXTE lisible sur ce fond ; la
+   * teinte glisse de 109 à 100 pour que le jaune reste doré au lieu de
+   * virer olive en descendant. C'est le seul déplacement de teinte du
+   * système, et il est le prix de la lisibilité. */
+  --primary: oklch(0.615 0.155 100);
   --primary-foreground: oklch(0.995 0.002 80);
 
   --secondary: oklch(0.925 0.004 80);
@@ -215,4 +233,11 @@ html[data-theme="light"] {
   --depth-highlight: oklch(1 0 0 / 75%);
   --depth-shadow: oklch(0 0 0 / 11%);
   --depth-float: oklch(0 0 0 / 22%);
+
+  /* Le jaune franc du bloc-notes : sur un mur pâle, le crème du thème
+   * sombre se confondrait avec la surface. */
+  --paper: oklch(0.915 0.135 100);
+  --paper-ink: oklch(0.26 0.03 80);
+  --paper-fold: oklch(0.8 0.14 100);
+  --paper-rule: oklch(0.26 0.03 80 / 22%);
 }
