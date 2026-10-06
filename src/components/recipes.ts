@@ -154,8 +154,23 @@ export const field = {
     "text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground",
   /** `text-base` et non `text-sm` : en dessous de 16px, iOS zoome tout seul
    *  quand le champ prend le focus, ce qui décale la page entière. */
+  /* UN FOND PLEIN, ET NON TRANSPARENT.
+   *
+   * Gab, 06/10/2026 : « make the text box more opaque for people to actually
+   * see what they're typing in. » Sur l'écran d'inscription, le filigrane de
+   * la marque passait au travers du champ et se mêlait aux lettres : on
+   * tapait son mot de passe par-dessus un dessin.
+   *
+   * `bg-transparent` était un pari sur le fond de la page, et il se perdait
+   * partout où ce fond n'était pas uni. Cinquante et un champs de l'app le
+   * corrigeaient déjà un par un ; c'était le signe que le défaut était ici.
+   *
+   * `background` et non `surface` : un champ est un creux dans la page, pas
+   * une carte posée dessus. Sur une carte en surface, le contraste se fait
+   * tout seul ; sur le fond, le champ reste lisible et le filigrane reste
+   * derrière. */
   input:
-    "w-full rounded-md border border-border bg-transparent px-4 py-3 text-base text-foreground " +
+    "w-full rounded-md border border-border bg-background px-4 py-3 text-base text-foreground " +
     "outline-none transition-colors placeholder:text-muted-foreground/60 " +
     "focus:border-primary disabled:opacity-50 tap-target",
   error: "mt-2 block text-sm text-destructive",
